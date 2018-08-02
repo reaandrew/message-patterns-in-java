@@ -1,0 +1,13 @@
+rootProject.name = 'messaging-patterns'
+include 'blocking-fire-forget:ServiceA'
+include 'blocking-fire-forget:ServiceB'
+include 'blocking-request-response:ServiceA'
+include 'blocking-request-response:ServiceB'
+include 'non-blocking-fire-forget:ServiceA'
+include 'non-blocking-fire-forget:ServiceB'
+include 'non-blocking-request-response:ServiceA'
+include 'non-blocking-request-response:ServiceA-Worker'
+include 'non-blocking-request-response:ServiceA-Core'
+include 'non-blocking-request-response:ServiceA-Infrastructure'
+include 'non-blocking-request-response:ServiceB'
+

@@ -1,0 +1,18 @@
+Configutation:
+  name: Default
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      JSONLayout:
+        eventEol: true
+        compact: true
+        properties: true
+
+
+  Loggers:
+      Root:
+        level: info
+        AppenderRef:
+          - ref: Console_Appender

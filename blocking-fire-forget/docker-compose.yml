@@ -1,0 +1,24 @@
+version: '2'
+services:
+  service_a:
+    build: ./ServiceA
+    ports:
+        - "8001:8000"
+    links:
+        - "service_b"
+    logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://localhost:5000"
+          syslog-format: "rfc3164"
+          tag: "service_a"
+  service_b:
+    build: ./ServiceB
+    ports:
+        - "8080:8080"
+    logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://localhost:5000"
+          syslog-format: "rfc3164"
+          tag: "service_b"

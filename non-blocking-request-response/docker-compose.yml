@@ -1,0 +1,50 @@
+version: '2'
+services:
+  service_a:
+    build: ./ServiceA
+    ports:
+        - "8001:8000"
+    links:
+        - "service_b"
+    logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://localhost:5000"
+          syslog-format: "rfc3164"
+          tag: "service_a"
+    command: sh -c 'while ! nc -z rabbitmq 5672; do sleep 3; done; java -jar ServiceA.jar'
+  service_a_worker:
+    build: ./ServiceA-Worker
+    ports:
+        - "8000"
+    links:
+        - "service_b"
+    logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://localhost:5000"
+          syslog-format: "rfc3164"
+          tag: "service_a_worker"
+    command: sh -c 'while ! nc -z rabbitmq 5672; do sleep 3; done; java -jar ServiceA-Worker.jar'
+  service_b:
+    build: ./ServiceB
+    ports:
+        - "8080:8080"
+    logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://localhost:5000"
+          syslog-format: "rfc3164"
+          tag: "service_b"
+  rabbitmq:
+      image: rabbitmq:3.6.9-management
+      ports:
+        - "15672:15672"
+        - "5672:5672"
+      volumes:
+        - ./config/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+        - ./config/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
+  mongodb:
+      image: mongo:latest
+      ports:
+          - 27017:27017

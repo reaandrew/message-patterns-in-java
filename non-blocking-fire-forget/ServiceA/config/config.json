@@ -1,0 +1,21 @@
+{
+  "hostname" : "0.0.0.0",
+  "port" : 8000,
+  "serviceUrl" : "http://service_b:8080/events",
+  "rabbit" : {
+    "username": "guest",
+    "password": "guest",
+    "hostname": "rabbitmq",
+    "port": 5672,
+    "serviceVirtualHost": "/",
+    "serviceQueueName": "service.a.consumer",
+    "serviceExchangeName": "service.a",
+    "serviceConsumerTag" : "service.a"
+  },
+  "mongo" : {
+    "databaseName" : "service_a",
+    "collectionName": "events",
+    "hostname": "mongodb",
+    "port": 27017
+  }
+}
